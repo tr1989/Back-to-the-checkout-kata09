@@ -12,6 +12,7 @@ public class CheckOutCalculator {
     public CheckOutCalculator() {
         this.priceList.put("A", 10);
         this.priceList.put("B", 15);
+        this.priceList.put("C", 20);
     }
 
     public int calculatePrice(List<String> itemsInCart){
