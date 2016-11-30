@@ -16,12 +16,9 @@ public class CheckOutCalculator {
 
     public int calculatePrice(List<String> itemsInCart){
         int sum = 0;
-        if(itemsInCart.contains("A")){
-            sum += getPriceOfItem("A");
-        } if (itemsInCart.contains("B")){
-            sum += getPriceOfItem("B");
-        }else {
-            sum += getPriceOfItem("");
+        for(int counter=0 ; counter < itemsInCart.size(); counter++) {
+            String currentItem = itemsInCart.get(counter);
+            sum += getPriceOfItem(currentItem);
         }
         return sum;
     }
