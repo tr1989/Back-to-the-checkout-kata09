@@ -8,24 +8,51 @@ import java.util.*;
 public class CheckOutCalculator {
 
     private Map<String, Integer> priceList = new HashMap<String, Integer>();
+    private Map<String, HashMap<Integer, Integer>> specialOfferPriceList = new HashMap<String, HashMap<Integer, Integer>>();
 
     public CheckOutCalculator() {
         this.priceList.put("A", 10);
         this.priceList.put("B", 15);
         this.priceList.put("C", 20);
+        HashMap<Integer, Integer> specialPrice = new HashMap<Integer, Integer>();
+        specialPrice.put(3,25);
+        this.specialOfferPriceList.put("A", specialPrice);
+        HashMap<Integer, Integer> specialPrice2 = new HashMap<Integer, Integer>();
+        specialPrice2.put(2,35);
+        this.specialOfferPriceList.put("B", specialPrice2);
     }
 
     public int calculatePrice(List<String> itemsInCart){
         int sum = 0;
+        HashMap<String, Integer> itemOccurance = new HashMap<String, Integer>();
         for(int counter=0 ; counter < itemsInCart.size(); counter++) {
             String currentItem = itemsInCart.get(counter);
-            sum += getPriceOfItem(currentItem);
+            if(itemOccurance.containsKey(currentItem)){
+                itemOccurance.put(currentItem, itemOccurance.get(currentItem)+1);
+            }else {
+                itemOccurance.put(currentItem, 1);
+            }
+        }
+        for (String currentItem : itemOccurance.keySet()) {
+            if(specialOfferPriceList.containsKey(currentItem)){
+                HashMap<Integer,Integer> specailOfferForCurrentItem = specialOfferPriceList.get(currentItem);
+                if(specailOfferForCurrentItem.containsKey(itemOccurance.get(currentItem))){
+                    sum += specailOfferForCurrentItem.get(itemOccurance.get(currentItem));
+                }
+            }
         }
         return sum;
     }
 
     protected int getPriceOfItem(String itemName){
         if(priceList.containsKey(itemName)) {
+            return priceList.get(itemName);
+        }
+        return 0;
+    }
+
+    protected int getSpecialPriceOfItem(String itemName){
+        if(specialOfferPriceList.containsKey(itemName)) {
             return priceList.get(itemName);
         }
         return 0;
