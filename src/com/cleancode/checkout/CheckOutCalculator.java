@@ -10,6 +10,8 @@ public class CheckOutCalculator {
     public int calculatePrice(List<String> itemsInCart){
         if(itemsInCart.contains("A")){
             return 10;
+        } else if (itemsInCart.contains("B")){
+            return 15;
         }
         return 0;
     }
