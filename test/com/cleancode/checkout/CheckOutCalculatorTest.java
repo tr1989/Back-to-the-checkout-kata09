@@ -30,4 +30,11 @@ public class CheckOutCalculatorTest {
         List<String> itemsInCart = Arrays.asList("B");
         Assert.assertEquals(15, checkOutCalculator.calculatePrice(itemsInCart));
     }
+
+    @Test
+    public void test_multiple_items_A_and_B_in_cart() {
+        CheckOutCalculator checkOutCalculator =  new CheckOutCalculator();
+        List<String> itemsInCart = Arrays.asList("A","B");
+        Assert.assertEquals(25, checkOutCalculator.calculatePrice(itemsInCart));
+    }
 }
