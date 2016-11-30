@@ -15,12 +15,15 @@ public class CheckOutCalculator {
     }
 
     public int calculatePrice(List<String> itemsInCart){
+        int sum = 0;
         if(itemsInCart.contains("A")){
-            return getPriceOfItem("A");
-        } else if (itemsInCart.contains("B")){
-            return getPriceOfItem("B");
+            sum += getPriceOfItem("A");
+        } if (itemsInCart.contains("B")){
+            sum += getPriceOfItem("B");
+        }else {
+            sum += getPriceOfItem("");
         }
-        return getPriceOfItem("");
+        return sum;
     }
 
     protected int getPriceOfItem(String itemName){
