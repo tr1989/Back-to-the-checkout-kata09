@@ -69,7 +69,7 @@ public class CheckOutCalculatorTest {
     @Test
     public void test_3_B_in_cart_and_specail_offer_on_2_B() {
         CheckOutCalculator checkOutCalculator =  new CheckOutCalculator();
-        List<String> itemsInCart = Arrays.asList("B","B");
-        Assert.assertEquals(55, checkOutCalculator.calculatePrice(itemsInCart));
+        List<String> itemsInCart = Arrays.asList("B","B","B");
+        Assert.assertEquals(40, checkOutCalculator.calculatePrice(itemsInCart));
     }
 }
