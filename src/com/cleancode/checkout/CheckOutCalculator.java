@@ -8,6 +8,9 @@ import java.util.List;
 public class CheckOutCalculator {
 
     public int calculatePrice(List<String> itemsInCart){
+        if(itemsInCart.contains("A")){
+            return 10;
+        }
         return 0;
     }
 }
