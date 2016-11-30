@@ -34,11 +34,11 @@ public class CheckOutCalculator {
             }
         }
         for (String currentItem : itemOccurance.keySet()) {
-            if(specialOfferPriceList.containsKey(currentItem)){
-                HashMap<Integer,Integer> specailOfferForCurrentItem = specialOfferPriceList.get(currentItem);
-                if(specailOfferForCurrentItem.containsKey(itemOccurance.get(currentItem))){
-                    sum += specailOfferForCurrentItem.get(itemOccurance.get(currentItem));
-                }
+            if(specialOfferPriceList.containsKey(currentItem) &&
+                    isSpecialPrizeApplicable(currentItem, itemOccurance)){
+                    sum += getSpecialPriceOfItem(currentItem, itemOccurance);
+            }else{
+                sum += getPriceOfItem(currentItem)*itemOccurance.get(currentItem);
             }
         }
         return sum;
@@ -51,9 +51,18 @@ public class CheckOutCalculator {
         return 0;
     }
 
-    protected int getSpecialPriceOfItem(String itemName){
-        if(specialOfferPriceList.containsKey(itemName)) {
-            return priceList.get(itemName);
+    protected boolean isSpecialPrizeApplicable(String itemName, HashMap<String, Integer> itemOccurance){
+        HashMap<Integer,Integer> specailOfferForCurrentItem = specialOfferPriceList.get(itemName);
+        if(specailOfferForCurrentItem.containsKey(itemOccurance.get(itemName))) {
+            return true;
+        }
+        return false;
+    }
+
+    protected int getSpecialPriceOfItem(String itemName, HashMap<String, Integer> itemOccurance){
+        HashMap<Integer,Integer> specailOfferForCurrentItem = specialOfferPriceList.get(itemName);
+        if(specailOfferForCurrentItem.containsKey(itemOccurance.get(itemName))) {
+            return specailOfferForCurrentItem.get(itemOccurance.get(itemName));
         }
         return 0;
     }
