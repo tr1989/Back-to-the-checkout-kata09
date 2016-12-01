@@ -18,7 +18,7 @@ public class CheckOutCalculator {
         specialPrice.put(3,25);
         this.specialOfferPriceList.put("A", specialPrice);
         HashMap<Integer, Integer> specialPrice2 = new HashMap<Integer, Integer>();
-        specialPrice2.put(2,35);
+        specialPrice2.put(2,25);
         this.specialOfferPriceList.put("B", specialPrice2);
     }
 
@@ -53,17 +53,36 @@ public class CheckOutCalculator {
 
     protected boolean isSpecialPrizeApplicable(String itemName, HashMap<String, Integer> itemOccurance){
         HashMap<Integer,Integer> specailOfferForCurrentItem = specialOfferPriceList.get(itemName);
-        if(specailOfferForCurrentItem.containsKey(itemOccurance.get(itemName))) {
-            return true;
+        boolean flag = false;
+        if(specailOfferForCurrentItem != null) {
+            for (int specialOfferOnItemCount : specailOfferForCurrentItem.keySet()) {
+                if (itemOccurance.get(itemName) >= specialOfferOnItemCount) {
+                    flag = true;
+                    break;
+                }
+            }
         }
-        return false;
+        return flag;
     }
 
     protected int getSpecialPriceOfItem(String itemName, HashMap<String, Integer> itemOccurance){
         HashMap<Integer,Integer> specailOfferForCurrentItem = specialOfferPriceList.get(itemName);
-        if(specailOfferForCurrentItem.containsKey(itemOccurance.get(itemName))) {
-            return specailOfferForCurrentItem.get(itemOccurance.get(itemName));
+        boolean flag = false;
+        int price = 0;
+        int remainingcount = itemOccurance.get(itemName);
+        for (int specialOfferOnItemCount  : specailOfferForCurrentItem.keySet()) {
+            if(remainingcount >= specialOfferOnItemCount){
+                flag = true;
+                price = specailOfferForCurrentItem.get(specialOfferOnItemCount);
+                remainingcount = remainingcount - specialOfferOnItemCount;
+                break;
+            }
         }
-        return 0;
+        if(remainingcount > 0){
+            int remainPrice =  getPriceOfItem(itemName)*remainingcount;
+            return price+remainPrice;
+        }else{
+            return price;
+        }
     }
 }
