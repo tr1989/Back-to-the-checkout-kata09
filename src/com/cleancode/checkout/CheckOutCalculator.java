@@ -44,14 +44,14 @@ public class CheckOutCalculator {
         return sum;
     }
 
-    protected int getPriceOfItem(String itemName){
+    private int getPriceOfItem(String itemName){
         if(priceList.containsKey(itemName)) {
             return priceList.get(itemName);
         }
         return 0;
     }
 
-    protected boolean isSpecialPrizeApplicable(String itemName, HashMap<String, Integer> itemOccurance){
+    private boolean isSpecialPrizeApplicable(String itemName, HashMap<String, Integer> itemOccurance){
         HashMap<Integer,Integer> specailOfferForCurrentItem = specialOfferPriceList.get(itemName);
         boolean flag = false;
         if(specailOfferForCurrentItem != null) {
@@ -65,7 +65,7 @@ public class CheckOutCalculator {
         return flag;
     }
 
-    protected int getSpecialPriceOfItem(String itemName, HashMap<String, Integer> itemOccurance){
+    private int getSpecialPriceOfItem(String itemName, HashMap<String, Integer> itemOccurance){
         HashMap<Integer,Integer> specailOfferForCurrentItem = specialOfferPriceList.get(itemName);
         boolean flag = false;
         int price = 0;
